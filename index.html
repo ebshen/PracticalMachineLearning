@@ -186,10 +186,10 @@ x &lt;- TrainSet[,-53]
 y &lt;- TrainSet[,53]</code></pre>
 <p>The final 52 variables are listed above. We also split “TrainSet” into x (without classe variable) and y (only the classe variable).</p>
 </div>
-<div id="prediction-models" class="section level2">
-<h2>3. Prediction Models</h2>
+<div id="prediction-models-cross-validation-out-of-sample-accuracy" class="section level2">
+<h2>3. Prediction Models, Cross-Validation, Out of sample Accuracy</h2>
 <p>Three models are trained and tested: 1) Decision tree (rpart), 2) Random forests (rf), and 3) Gradient boosting machine (gbm).</p>
-<p>The following instructions from <a href="https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md" class="uri">https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md</a> were used to enable parallel processing and 3-fold cross validation. The following are the out of sample results for each model.</p>
+<p>The following instructions from <a href="https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md" class="uri">https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md</a> were used to enable parallel processing and 3-fold cross validation. The following are the out of sample results for each model (from evaluation on TestSet).</p>
 <div id="decision-tree-rpart" class="section level3">
 <h3>Decision Tree (rpart)</h3>
 <pre class="r"><code>cluster &lt;- makeCluster(detectCores() - 1)
@@ -220,11 +220,12 @@ confusionMatrix(TestSet$classe, Gbmresult)$overall[&quot;Accuracy&quot;]</code><
 ## 0.9607477</code></pre>
 <pre class="r"><code>stopCluster(cluster)
 registerDoSEQ()</code></pre>
-<p>From the out of sample accuracy results, we choose the Random Forest model.</p>
+<p>From the out of sample accuracy results, we choose the Random Forest model based on the 99.15% accuracy.</p>
 </div>
 </div>
 <div id="final-model-testing" class="section level2">
 <h2>4. Final model testing</h2>
+<p>The final model (Random Forest) is applied to the “testing” set of 20 cases for final evaluation.</p>
 <pre class="r"><code>predictTesting &lt;- predict(modelFitRf, newdata = testing)
 predictTesting</code></pre>
 <pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B

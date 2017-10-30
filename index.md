@@ -80,12 +80,12 @@ y <- TrainSet[,53]
 
 The final 52 variables are listed above. We also split "TrainSet" into x (without classe variable) and y (only the classe variable).
 
-## 3. Prediction Models
+## 3. Prediction Models, Cross-Validation, Out of sample Accuracy
 
 Three models are trained and tested: 1) Decision tree (rpart), 2) Random forests (rf), and 3) Gradient boosting machine (gbm).
 
 The following instructions from
-https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md were used to enable parallel processing and 3-fold cross validation. The following are the out of sample results for each model.
+https://github.com/lgreski/datasciencectacontent/blob/master/markdown/pml-randomForestPerformance.md were used to enable parallel processing and 3-fold cross validation. The following are the out of sample results for each model (from evaluation on TestSet).
 
 ### Decision Tree (rpart)
 
@@ -144,9 +144,11 @@ stopCluster(cluster)
 registerDoSEQ()
 ```
 
-From the out of sample accuracy results, we choose the Random Forest model.
+From the out of sample accuracy results, we choose the Random Forest model based on the 99.15% accuracy.
 
 ## 4. Final model testing
+
+The final model (Random Forest) is applied to the "testing" set of 20 cases for final evaluation.
 
 
 ```r
